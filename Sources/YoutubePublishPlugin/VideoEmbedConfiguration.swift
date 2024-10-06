@@ -9,11 +9,12 @@ import Foundation
 public struct VideoEmbedConfiguration  {
     var width: Int?
     var height: Int?
-    var className: String = "embeddedVideo"
+    var className: String
     
-    init(width: Int = 560, height: Int = 315) {
+    public init(width: Int = 560, height: Int = 315, className: String = "embeddedVideo") {
         self.width = width
         self.height = height
+        self.className = className
     }
     
     public static var `default`: VideoEmbedConfiguration { VideoEmbedConfiguration() }
