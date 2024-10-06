@@ -11,15 +11,15 @@ import Ink
 
 
 public extension Plugin {
-    static func youtube(renderer: VideoRenderer = DefaultVideoRenderer()) -> Self {
+    static func youtube(renderer: VideoRenderer = DefaultVideoRenderer(config: .default)) -> Self {
         Plugin(name: "Youtube") { context in
-            context.markdownParser.addModifier(.youtubeBlockQuote(using: renderer))
+            context.markdownParser.addModifier(.youtubeBlockQuote(using: renderer, configuration: renderer.config))
         }
     }
 }
 
 public extension Modifier {
-    static func youtubeBlockQuote(using renderer: VideoRenderer) -> Self {
+    static func youtubeBlockQuote(using renderer: VideoRenderer, configuration: VideoEmbedConfiguration) -> Self {
         return Modifier(target: .blockquotes) { html, markdown in
             let prefix = "youtube "
             var markdown = markdown.dropFirst().trimmingCharacters(in: .whitespaces)
@@ -33,7 +33,7 @@ public extension Modifier {
                 fatalError("Invalid video URL \(markdown)")
             }
             
-            let generator = YoutubeEmbedGenerator(url: url, configuration: .default)
+            let generator = YoutubeEmbedGenerator(url: url, configuration: configuration)
             let youtube = try! generator.generate().get()
             return try! renderer.render(video: youtube)
         }

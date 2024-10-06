@@ -11,15 +11,15 @@ import Ink
 
 
 public extension Plugin {
-    static func tedTalks(renderer: VideoRenderer = DefaultVideoRenderer()) -> Self {
+    static func tedTalks(renderer: VideoRenderer = DefaultVideoRenderer(config: .default)) -> Self {
         Plugin(name: "Ted Video Plugin") { context in
-            context.markdownParser.addModifier(.tedTalksBlockQuote(using: renderer))
+            context.markdownParser.addModifier(.tedTalksBlockQuote(using: renderer, configuration: renderer.config))
         }
     }
 }
 
 public extension Modifier {
-    static func tedTalksBlockQuote(using renderer: VideoRenderer) -> Self {
+    static func tedTalksBlockQuote(using renderer: VideoRenderer, configuration: VideoEmbedConfiguration) -> Self {
         return Modifier(target: .blockquotes) { html, markdown in
             let prefix = "tedtalk "
             var markdown = markdown.dropFirst().trimmingCharacters(in: .whitespaces)
@@ -33,7 +33,7 @@ public extension Modifier {
                 fatalError("Invalid video URL \(markdown)")
             }
             
-            let generator = TedTalkEmbedGenerator(url: url, configuration: .default)
+            let generator = TedTalkEmbedGenerator(url: url, configuration: configuration)
             let video = try! generator.generate().get()
             return try! renderer.render(video: video)
         }

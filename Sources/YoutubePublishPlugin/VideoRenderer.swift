@@ -6,11 +6,15 @@
 //
 
 public protocol VideoRenderer {
+    var config: VideoEmbedConfiguration { get }
     func render(video: EmbeddedVideo) throws -> String
 }
 
 public final class DefaultVideoRenderer: VideoRenderer{
-    public init() {}
+    public var config: VideoEmbedConfiguration
+    public init(config: VideoEmbedConfiguration) {
+        self.config = config
+    }
     public func render(video: EmbeddedVideo) throws -> String { video.html }
 }
 
@@ -27,6 +31,10 @@ public enum VideoPortal {
     }
 }
 
-func html(portal: VideoPortal, from address: String, width: Int, height: Int) -> String {
-    "<div class=\"embeddedVideo\"><iframe width=\"\(width)\" height=\"\(height)\" src=\"\(portal.baseURL)\(address)\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+func html(portal: VideoPortal, from address: String, width: Int?, height: Int?, className: String) -> String {
+    if let width, let height {
+        return "<div class=\"\(className)\"><iframe width=\"\(width)\" height=\"\(height)\" src=\"\(portal.baseURL)\(address)\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+
+    }
+    return "<div class=\"\(className)\"><iframe src=\"\(portal.baseURL)\(address)\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
 }

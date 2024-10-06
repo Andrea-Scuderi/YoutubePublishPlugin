@@ -7,13 +7,14 @@
 
 import Foundation
 public struct VideoEmbedConfiguration  {
-    var width: Int
-    var height: Int
+    var width: Int?
+    var height: Int?
+    var className: String = "embeddedVideo"
     
     init(width: Int = 560, height: Int = 315) {
         self.width = width
         self.height = height
     }
     
-    static var `default`: VideoEmbedConfiguration { VideoEmbedConfiguration() }
+    public static var `default`: VideoEmbedConfiguration { VideoEmbedConfiguration() }
 }

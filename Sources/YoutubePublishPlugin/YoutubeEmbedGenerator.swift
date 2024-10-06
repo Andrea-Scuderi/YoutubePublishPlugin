@@ -27,7 +27,7 @@ struct YoutubeEmbedGenerator {
         
         // condition: www.youtube.com
         if let v = components.queryItems?.compactMap ({ $0 }).filter({ $0.name == "v" }).first?.value {
-            let htmlCode = html(portal: .youtube, from: v, width: config.width, height: config.height)
+            let htmlCode = html(portal: .youtube, from: v, width: config.width, height: config.height, className: config.className)
             return .success(EmbeddedVideo(width: config.width, height: config.height, html: htmlCode))
         }
         
@@ -37,7 +37,7 @@ struct YoutubeEmbedGenerator {
             return .failure(.invalidURL)
         }
         
-        let htmlCode = html(portal: .youtube, from: components.path, width: config.width, height: config.height)
+        let htmlCode = html(portal: .youtube, from: components.path, width: config.width, height: config.height, className: config.className)
         return .success(EmbeddedVideo(width: config.width, height: config.height, html: htmlCode))
     }
 }

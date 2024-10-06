@@ -33,7 +33,7 @@ struct TedTalkEmbedGenerator {
         
         // condition: contains talks/
         if components.path.starts(with: "/talks/") {
-            let htmlCode = html(portal: .ted, from: components.path, width: config.width, height: config.height)
+            let htmlCode = html(portal: .ted, from: components.path, width: config.width, height: config.height, className: config.className)
             return .success(EmbeddedVideo(width: config.width, height: config.height, html: htmlCode))
         }
       
