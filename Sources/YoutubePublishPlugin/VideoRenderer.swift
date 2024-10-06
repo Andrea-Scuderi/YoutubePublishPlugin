@@ -36,5 +36,5 @@ func html(portal: VideoPortal, from address: String, width: Int?, height: Int?, 
         return "<div class=\"\(className)\"><iframe width=\"\(width)\" height=\"\(height)\" src=\"\(portal.baseURL)\(address)\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
 
     }
-    return "<div class=\"\(className)\"><iframe src=\"\(portal.baseURL)\(address)\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
+    return "<div class=\"\(className)\"><iframe class=\"\(className)\" src=\"\(portal.baseURL)\(address)\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"
 }
