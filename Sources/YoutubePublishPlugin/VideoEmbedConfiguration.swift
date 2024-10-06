@@ -11,7 +11,7 @@ public struct VideoEmbedConfiguration  {
     var height: Int?
     var className: String
     
-    public init(width: Int = 560, height: Int = 315, className: String = "embeddedVideo") {
+    public init(width: Int? = 560, height: Int? = 315, className: String = "embeddedVideo") {
         self.width = width
         self.height = height
         self.className = className
